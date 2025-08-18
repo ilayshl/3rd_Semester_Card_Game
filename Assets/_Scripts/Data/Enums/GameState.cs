@@ -1,13 +1,12 @@
 public enum GameState
 {
     MainMenu,
+    Settings,
+    Pause,
     WaitingForInput,
-    PlayerOneReady,
-    PlayerTwoReady,
     CardsPull,
-    Minigame,
+    FloatMinigame,
     PlayerOneWon,
     PlayerTwoWon,
     GameOver,
-    Pause,
 }
