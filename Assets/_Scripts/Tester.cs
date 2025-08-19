@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Tester : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI playerOneDeckSize;
     [SerializeField] private TextMeshProUGUI playerTwoDeckSize;
+    [SerializeField] private TextMeshProUGUI mainDeckSize;
     private Deck _mainDeck;
     private Deck playerOneDeck;
     private Deck playerTwoDeck;
@@ -19,6 +21,7 @@ public class Tester : MonoBehaviour
     {
         _mainDeck = new Deck(suitsAmount, 13);
         Debug.Log(_mainDeck.ToString());
+        UpdateDeckSizeText();
     }
 
     public void Shuffle()
@@ -60,13 +63,13 @@ public class Tester : MonoBehaviour
         }
         playerOneDeck = new(temp); //Creates a new deck to correctly set OriginalCount's value
         temp = new();
+        currentDeckCount = _mainDeck.Count;
         //Moves all remaining cards from the deck to player two's deck while keeping their order
-        for (int i = 0; i < _mainDeck.Count; i++)
+        for (int i = 0; i < currentDeckCount; i++)
         {
-            temp.Add(_mainDeck.CardAt(i));
+            temp.Add(_mainDeck.DrawCardAt(0));
         }
         playerTwoDeck = new(temp); //Creates a new deck to correctly set OriginalCount's value
-        _mainDeck = null;
         Debug.Log(playerOneDeck.ToString());
         Debug.Log(playerTwoDeck.ToString());
         UpdateDeckSizeText();
@@ -74,12 +77,36 @@ public class Tester : MonoBehaviour
 
     public void Play()
     {
-        List<Card> mainDeck = _mainDeck.ToList();
+        Card playerOneCard = playerOneDeck.DrawCard();
+        Card playerTwoCard = playerTwoDeck.DrawCard();
+        Debug.Log(playerOneCard.ToString());
+        Debug.Log(playerTwoCard.ToString());
+        if (playerOneCard.Rank > playerTwoCard.Rank)
+        {
+            Debug.Log("Player 1 wins!");
+            playerOneDeck.AddCard(playerOneCard);
+            playerOneDeck.AddCard(playerTwoCard);
+        }
+        else if (playerOneCard.Rank < playerTwoCard.Rank)
+        {
+            Debug.Log("Player 2 wins!");
+            playerTwoDeck.AddCard(playerOneCard);
+            playerTwoDeck.AddCard(playerTwoCard);
+        }
+        else
+        {
+            Debug.Log("Tie!");
+        }
+        UpdateDeckSizeText();
     }
 
     private void UpdateDeckSizeText()
     {
-        playerOneDeckSize.SetText($"{playerOneDeck.Count} / {playerOneDeck.OriginalCount}");
-        playerTwoDeckSize.SetText($"{playerTwoDeck.Count} / {playerTwoDeck.OriginalCount}");
+        mainDeckSize.SetText($"{_mainDeck.Count} / {_mainDeck.OriginalCount}");
+        if (playerOneDeck != null && playerTwoDeck != null)
+        {
+            playerOneDeckSize.SetText($"{playerOneDeck.Count} / {playerOneDeck.OriginalCount}");
+            playerTwoDeckSize.SetText($"{playerTwoDeck.Count} / {playerTwoDeck.OriginalCount}");
+        }
     }
 }

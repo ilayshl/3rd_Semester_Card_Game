@@ -13,7 +13,7 @@ public class CardView : MonoBehaviour
     public void Setup(Card card)
     {
         this.card = card;
-        cardRank.SetText(card.cardRank.ToString());
+        cardRank.SetText(card.Rank.ToString());
         cardSuit.sprite = card.suitImage;
     }
 

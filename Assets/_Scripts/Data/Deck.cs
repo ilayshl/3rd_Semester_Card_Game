@@ -65,7 +65,7 @@ public class Deck
         System.Text.StringBuilder sb = new System.Text.StringBuilder();
         foreach (var card in _deck)
         {
-            sb.AppendLine($"My rank is {card.cardRank} and my suit is {card.cardSuit}");
+            sb.AppendLine($"My rank is {card.Rank} and my suit is {card.Suit}");
         }
         sb.AppendLine($"Total cards in deck: {Count} out of: {OriginalCount}");
         return sb.ToString();
