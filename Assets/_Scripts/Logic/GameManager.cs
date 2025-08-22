@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Unused for now.
+/// </summary>
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -19,23 +22,12 @@ public class GameManager : MonoBehaviour
         //Awake logic
     }
 
-    public void ChangeGameState(GameState newState = GameState.WaitingForInput)
+    public void ChangeGameState(GameState newState = GameState.Active)
     {
-        switch (newState)
+        /* switch (newState)
         {
          
-        }
+        } */
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

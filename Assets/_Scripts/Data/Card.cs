@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Holds all information about a card.
+/// </summary>
 public class Card
 {
     public readonly CardSuit Suit;
@@ -13,28 +16,29 @@ public class Card
         this.suitImage = suitImage;
     }
 
+    /// <summary>
+    /// Returns only the rank as a string.
+    /// </summary>
+    /// <returns></returns>
+    public string RankToString()
+    {
+        string displayRank = Rank switch
+        {
+            11 => "Prince",
+            12 => "Queen",
+            13 => "King",
+            14 => "Ace",
+            _ => Rank.ToString()
+        };
+        return displayRank;
+    }
+
+    /// <summary>
+    /// Returns the entire card name.
+    /// </summary>
+    /// <returns></returns>
     public override string ToString()
     {
-        string cardDescription = string.Empty;
-        switch (Rank)
-        {
-            case 11:
-                cardDescription = "Prince";
-                break;
-            case 12:
-                cardDescription = "Queen";
-                break;
-            case 13:
-                cardDescription = "King";
-                break;
-            case 14:
-                cardDescription = "Ace";
-                break;
-            default:
-                cardDescription = Rank.ToString();
-                break;
-        }
-
-        return $"{cardDescription} of {Suit}";
+        return $"{RankToString()} of {Suit}";
     }
 }

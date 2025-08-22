@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+/// <summary>
+/// Handles a deck with all necessary functionality.
+/// </summary>
 public class Deck
 {
     public int Count { get => _deck.Count; }
@@ -19,6 +22,11 @@ public class Deck
         OriginalCount = _deck.Count;
     }
 
+    /// <summary>
+    /// Creates a new deck based on how many suits and ranks are needed.
+    /// </summary>
+    /// <param name="suitsAmount"></param>
+    /// <param name="ranksPerSuit"></param>
     private void CreateDeck(int suitsAmount, int ranksPerSuit)
     {
         List<Card> deckToCreate = new();
@@ -33,6 +41,9 @@ public class Deck
         OriginalCount = _deck.Count;
     }
 
+    /// <summary>
+    /// Shuffles all cards in a deck.
+    /// </summary>
     public void ShuffleDeck()
     {
         List<Card> shuffledDeck = new();
@@ -51,13 +62,53 @@ public class Deck
         _deck.Add(card);
     }
 
+    public void AddCardAtRandom(Card card)
+    {
+        int randomIndex = Random.Range(0, _deck.Count);
+        _deck.Insert(randomIndex, card);
+    }
+
+    /// <summary>
+    /// Draws the top card (last on the list) from a deck.
+    /// </summary>
+    /// <returns></returns>
     public Card DrawCard()
     {
-        Card cardDrawn = _deck[_deck.Count-1];
-        _deck.RemoveAt(_deck.Count-1);
+        Card cardDrawn = _deck[_deck.Count - 1];
+        _deck.RemoveAt(_deck.Count - 1);
         return cardDrawn;
     }
 
+    /// <summary>
+    /// Returns the deck as a List of Cards.
+    /// </summary>
+    /// <returns></returns>
+    public List<Card> ToList()
+    {
+        return this._deck;
+    }
+    
+    public Card CardAt(int index)
+    {
+        return _deck[index];
+    }
+
+    /// <summary>
+    /// Draws a specific card from the deck, based on Index.
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    public Card DrawCardAt(int index)
+    {
+        Card cardDrawn = _deck[index];
+        _deck.RemoveAt(index);
+        return cardDrawn;
+    }
+
+    /// <summary>
+    /// Returns a string of all cards in the deck and its count.
+    /// </summary>
+    /// <returns></returns>
     public override string ToString()
     {
         if (_deck == null || _deck.Count == 0) return "[Deck] Deck is empty.";
@@ -69,22 +120,5 @@ public class Deck
         }
         sb.AppendLine($"Total cards in deck: {Count} out of: {OriginalCount}");
         return sb.ToString();
-    }
-
-    public List<Card> ToList()
-    {
-        return this._deck;
-    }
-
-    public Card CardAt(int index)
-    {
-        return _deck[index];
-    }
-
-    public Card DrawCardAt(int index)
-    {
-        Card cardDrawn = _deck[index];
-        _deck.RemoveAt(index);
-        return cardDrawn;
     }
 }

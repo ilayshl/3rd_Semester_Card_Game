@@ -4,9 +4,26 @@ public enum GameState
     Settings,
     Pause,
     WaitingForInput,
-    CardsPull,
+    Active,
+    WarSequence,
     FloatMinigame,
+    GameOver,
+}
+
+public enum WarGameState
+{
+    Inactive,
+    DrawCards,
+    Evaluate,
     PlayerOneWon,
     PlayerTwoWon,
-    GameOver,
+}
+
+public enum MinigameState
+{
+    Arranging,
+    Playing,
+    PlayerOneWon,
+    PlayerTwoWon,
+    Finish,
 }
