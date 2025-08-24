@@ -76,7 +76,7 @@ public class WarGameHandler : Singleton<WarGameHandler>
         //Checks if main deck even exists
         if (_mainDeck == null)
         {
-            Debug.Log("No deck to shuffle! Try creating a deck first.");
+            Debug.Log("[WarGameHandler] No deck to shuffle! Try creating a deck first.");
             return;
         }
 
@@ -91,9 +91,9 @@ public class WarGameHandler : Singleton<WarGameHandler>
     public void DivideCards()
     {
         //Checks if main deck even exists
-        if (_mainDeck == null)
+        if (_mainDeck == null || _mainDeck.Count == 0)
         {
-            Debug.Log("[Tester] No deck to shuffle! Try creating a deck first.");
+            Debug.Log("[WarGameHandler] No deck to divide! Try creating a deck first.");
             return;
         }
 
